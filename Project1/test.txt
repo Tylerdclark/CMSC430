@@ -1,0 +1,11 @@
+-- Simple Program with one function
+
+function main a: integer returns integer;
+    b: integer is a * 2;
+begin
+    if a <= 0 then
+        b + b;
+    else
+        b * b;
+    endif;
+end;
