@@ -1,11 +1,12 @@
--- Simple Program with one function
+-- Discussion Program
 
-function main a: integer returns integer;
-    b: integer is a * 2;
+function drinkingAgeCalc age: integer returns boolean;
+    canDrink: boolean is false;
+
 begin
-    if a <= 0 then
-        b + b;
+    if age >= 21 then
+        not canDrink;
     else
-        b * b;
+        canDrink;
     endif;
 end;

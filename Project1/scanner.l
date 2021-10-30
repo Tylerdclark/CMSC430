@@ -17,20 +17,23 @@ using namespace std;
 %option noyywrap
 
 ws		[ \t\r]+
-comment		\-\-.*\n
+comment		(\-\-.*\n)|(\/\/.*\n)  
 line		[\n]
-id		[A-Za-z][A-Za-z0-9]*
+id		[A-Za-z]([_]?[A-Za-z0-9])*
 digit		[0-9]
 int		{digit}+
 punc		[\(\),:;]
+real		[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?
 %%
 
 {ws}		{ ECHO; }
 {comment}	{ ECHO; nextLine();}
 {line}		{ ECHO; nextLine();}
-"<"		{ ECHO; return(RELOP); }
-"+"		{ ECHO; return(ADDOP); }
-"*"		{ ECHO; return(MULOP); }
+"<"|">"|">="|"<="|"="|"/="	{ ECHO; return(RELOP); }
+"+"|"-"		{ ECHO; return(ADDOP); }
+"*"|"/"		{ ECHO; return(MULOP); }
+"=>"	{ ECHO; return(ARROW); }
+"**"	{ ECHO; return(EXPOP); }
 begin		{ ECHO; return(BEGIN_); }
 boolean		{ ECHO; return(BOOLEAN); }
 end		{ ECHO; return(END); }
@@ -41,8 +44,22 @@ is		{ ECHO; return(IS); }
 reduce		{ ECHO; return REDUCE; }
 returns		{ ECHO; return(RETURNS); }
 and		{ ECHO; return(ANDOP); }
+case		{ ECHO; return(CASE); }
+else		{ ECHO; return(ELSE); }
+endcase		{ ECHO; return(ENDCASE); }
+endif		{ ECHO; return(ENDIF); }
+if		{ ECHO; return(IF); }
+others		{ ECHO; return(OTHERS); }
+real		{ ECHO; return(REAL); }
+then		{ ECHO; return(THEN); }
+when		{ ECHO; return(WHEN); }
+or		{ ECHO; return(OROP); }
+not		{ ECHO; return(NOTOP); }
+rem		{ ECHO; return(REMOP); }
+true|false	{ ECHO; return(BOOL_LITERAL); }
 {id}		{ ECHO; return(IDENTIFIER);}
 {int}		{ ECHO; return(INT_LITERAL); }
+{real}		{ ECHO; return(REAL_LITERAL); }
 {punc}		{ ECHO; return(yytext[0]); }
 .		{ ECHO; appendError(LEXICAL, yytext); }
 %%

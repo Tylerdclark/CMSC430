@@ -1,0 +1,6 @@
+(* Program with no errors *)
+
+function test1 returns boolean;
+begin
+    7 + 2 > 6 and 8 = 5 * (7 - 4);
+end;
