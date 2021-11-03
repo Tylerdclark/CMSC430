@@ -1,8 +1,8 @@
-// Compiler Theory and Design
-// Dr. Duane J. Jarc
-
-// This file contains the bodies of the functions that produces the compilation
-// listing
+/* Name: Tyler Clark
+*  Date: 10/31/2021
+*  CMSC 430 Project 1
+*  This file contains the bodies of the functions that produces the compilation listing
+*/
 
 #include <cstdio>
 #include <string>
@@ -16,7 +16,6 @@ static int lineNumber;
 static queue<string> errorQueue;
 static int totalErrors[] = {0, 0, 0}; // 0 = lexical, 1 = syntax, 2 = semantic
 static void displayErrors();
-static void clear(queue<int> &q);
 
 void firstLine()
 {
