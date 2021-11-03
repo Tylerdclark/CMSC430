@@ -1,0 +1,29 @@
+// Second comment
+
+-- Punctuation symbols
+
+,;() =>
+
+-- Identifier
+
+name name123 name_123 name_123_name
+
+-- Literals
+
+123 100.0 1.0e2 1.0e-2 true false
+
+-- Logical operators
+
+and or not
+
+-- Relational operators
+
+< = /= > >= <=
+
+-- Arithmetic operators
+
++ - * ** / rem
+
+-- Reserved words
+
+begin else end endif endreduce function if is integer reduce returns then case endcase others real when
