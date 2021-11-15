@@ -1,3 +1,8 @@
+#  Name: Tyler Clark
+#  Date: 11/13/2021
+#  CMSC 430 Project 2
+#  This makefile will compile the project and provides a clean command
+
 compile: scanner.o parser.o listing.o
 	g++ -o compile scanner.o parser.o listing.o
 	
@@ -18,3 +23,6 @@ parser.c tokens.h: parser.y
 
 listing.o: listing.cc listing.h
 	g++ -c listing.cc
+
+clean:
+	rm -f compile *.o lexemes.txt scanner.c parser.c parser.output parser.tab.h tokens.h
