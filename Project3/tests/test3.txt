@@ -1,0 +1,7 @@
+-- Function with a Variable
+
+function test3 returns integer;
+    b: integer is 5 + 1 * 4;
+begin
+    b + 8;
+end;

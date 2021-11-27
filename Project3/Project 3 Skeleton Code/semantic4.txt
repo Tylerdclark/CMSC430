@@ -1,0 +1,6 @@
+-- Function with Undeclared Variable
+
+function semantic4 returns boolean;
+begin
+    (b + 2) * (2 + 4);
+end;

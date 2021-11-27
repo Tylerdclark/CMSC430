@@ -1,0 +1,14 @@
+-- Function with Nested Reductions
+
+function test4 returns integer;
+begin
+    reduce +
+         2 * 8;
+         reduce *
+             3 + 4;
+             2;
+         endreduce;
+         6;
+         23 + 6;
+    endreduce;    
+end;
