@@ -1,0 +1,14 @@
+-- Multiple errors
+
+function main a integer returns real;
+
+    b: integer is * 2;
+    c: real is 6.0;
+    
+begin
+    if a > c then
+        b  3.0; 
+    else
+        b = 4.; 
+    endif;
+;
