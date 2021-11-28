@@ -1,6 +1,6 @@
 /* Name: Tyler Clark
-*  Date: 11/13/2021
-*  CMSC 430 Project 2
+*  Date: 11/28/2021
+*  CMSC 430 Project 3
 *  This file contains the bison parser for the language described in the instructions.
 */
 
@@ -36,9 +36,9 @@ int result;
 
 %token <iden> IDENTIFIER
 %token <value> INT_LITERAL BOOL_LITERAL REAL_LITERAL
-%token <oper> ADDOP MULOP RELOP REMOP 
-%token ANDOP EXPOP OROP NOTOP
-%token BEGIN_ BOOLEAN END ENDREDUCE FUNCTION INTEGER IS REDUCE RETURNS ARROW CASE ELSE ENDCASE ENDIF IF OTHERS THEN WHEN REAL
+%token <oper> ADDOP MULOP RELOP REMOP EXPOP ARROW
+%token ANDOP OROP NOTOP
+%token BEGIN_ BOOLEAN END ENDREDUCE FUNCTION INTEGER IS REDUCE RETURNS CASE ELSE ENDCASE ENDIF IF OTHERS THEN WHEN REAL
 
 %type <value> body statement_ statement reductions expression binary relation term factor exponent unary primary case
 %type <oper> operator
@@ -61,7 +61,7 @@ optional_variable:
 	;
 
 variable:
-	IDENTIFIER ':' type IS statement_ 
+	IDENTIFIER ':' type IS statement_ {symbols.insert($1, $5);}
 	;
 
 optional_parameter:
@@ -85,17 +85,17 @@ type:
 	;
 
 body:
-	BEGIN_ statement_ END ';' 
+	BEGIN_ statement_ END ';' {$$ = $2;}
 	;
     
 statement_:
 	statement ';' 
-	| error ';' 
+	| error ';' {$$ = 0;}
 	;
 	
 statement:
 	expression 
-	| REDUCE operator reductions ENDREDUCE 
+	| REDUCE operator reductions ENDREDUCE {$$ = $3;}
 	| IF expression THEN statement_ ELSE statement_ ENDIF
 	| CASE expression IS case OTHERS ARROW statement_ ENDCASE
 	;
@@ -111,8 +111,8 @@ case:
 	;
 
 reductions:
- 	/* empty */
-	| reductions statement_ 
+ 	/* empty */ {$$ = $<oper>0 == ADD ? 0 : 1;}
+	| reductions statement_ {$$ = evaluateReduction($<oper>0, $1, $2);}
 	;
 		    
 expression:
@@ -153,11 +153,11 @@ unary:
 	;
 
 primary:
-	'(' expression ')' 
+	'(' expression ')' {$$ = $2;}
 	| INT_LITERAL
 	| REAL_LITERAL
 	| BOOL_LITERAL 
-	| IDENTIFIER 
+	| IDENTIFIER {if (!symbols.find($1, $$)) appendError(UNDECLARED, $1);}
 	;
     
 %%
