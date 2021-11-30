@@ -1,7 +1,14 @@
--- Function with a Variable
+-- This tests relation operators, logical operators, and multiple parameters
 
-function test3 returns integer;
-    b: integer is 5 + 1 * 4;
+function test3 a: integer, b: integer returns boolean;
+
 begin
-    b + 8;
+    case a is
+        when 1 => (a < b);
+        when 2 => (a > b);
+        when 3 => (a >= b);
+        when 4 => (a <= b);
+        when 5 => (a /= b) and (a = b);
+        others => (a /= b) or (a = b);
+    endcase;
 end;

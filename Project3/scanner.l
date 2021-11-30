@@ -93,8 +93,8 @@ when		{ ECHO; return(WHEN); }
         return(MULOP); }
 "=>"	{
         ECHO; 
-        yylval.oper = ARROW; 
-        return(ARROW); }
+        yylval.oper = ARROW;
+        return(ARROWOP); }
 "**"	{ 
         ECHO; 
         yylval.oper = EXP; 

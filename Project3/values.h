@@ -22,6 +22,8 @@ enum Operators
     SUBTRACT
 };
 
-int evaluateReduction(Operators operator_, int head, int tail);
-int evaluateRelational(int left, Operators operator_, int right);
-int evaluateArithmetic(int left, Operators operator_, int right);
+double evaluateReduction(Operators operator_, double head, double tail);
+double evaluateRelational(double left, Operators operator_, double right);
+double evaluateArithmetic(double left, Operators operator_, double right);
+double evaluateIfElse(double expression, double ifStatement, double elseStatement);
+

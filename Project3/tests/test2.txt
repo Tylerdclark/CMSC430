@@ -1,6 +1,11 @@
--- Expression with arithmetic, logical and relational operators
+-- Tests boolean literal evaluation, not operator, if expression.
 
-function test2 returns boolean;
+function test2 a: real returns boolean;
+	b: boolean is true;
 begin
-    3 < 5 * 3 and 2 + 2 < 8;    
+	if a > 0 then
+		b;
+	else
+		not b;
+	endif;
 end;

@@ -1,49 +1,36 @@
-# CMSC 430 Project 2
+# CMSC 430 Project 3
 
 **Author:** Tyler D Clark  
-**Date:** 15 November 2021
+**Date:** 30 November 2021
 
-**Description** The second project involves modifying the syntactic analyzer for the attached compiler by adding to the existing grammar.
+**Description** The third project involves modifying the attached interpreter so that it interprets programs for the complete language.
 ___
 
 ## Approach
 
-I started by reading up on the reading materials for the assignment. I watched all of the videos as well to get a good understanding before continuing. I then transferred the lexer and the generator code from the previous project to this project. This was so that I could properly view errors and the lexer could identify the correct tokens. I then modified the parser to incorporate the new grammar from this project.
+Like the previous projects, I started by reading up on the reading materials for the assignment. Again, I watched all the videos as well to get a good understanding before continuing. I then transferred the lexer and the generator code from the previous project to this project. This was so that I could properly view errors, the lexer could identify the correct tokens and the parser could parse the given language. The first changes I made was to fully list all the tokens to be used in
+the language in values.h. I then made sure the proper token was being returned in scanner.l and in the case of operators, yylval.oper was being set. Next, I added the code to process each different type of statement and lastly added them to the correct productions in the bison file.
 
 ## Test cases
 
 ### Test case 1
 
-The first test case was to test all of the productions added in this assignment. I used the following code to test the grammar:
+The first test case was to test real values, multiple variables, arithmetic operators, and case statements. The following code was used to test the interpreter:
 
 ```md
--- Testing all grammars
-// Other comment
+-- Tests real evaluation, arithmetic operators, case expression evaluation, multiple variables.
 
-function main param1: integer, param2: real returns boolean;
-    var1: integer is 100;
-    var2: real is 12.3e+10;
-    var_3: boolean is true;
-
-    begin
-        if (param1 > var1 or not param2 < var2)
-            then
-                reduce +
-                   10 * 10 + 2;
-                   100 rem 10;
-                   10 * 10 ** 2;
-                   10 - 2;
-                   10 / 5;
-                endreduce;
-            else
-                case param1 is
-                    when 0 => 1 = 2;
-                    when 1 => 3 /= 4;
-                    when 2 => 5 >= 6;
-                    others => 7 <= 8;
-                endcase;
-        endif;
-    end;
+function test1 a: integer returns real;
+    b: real is 12.3 + 4.5;
+    c: real is 6.78 - 9.10;
+    d: real is 12.3 / 4.5;
+begin
+    case a is
+        when 1 => b * 6.7;
+        when 2 => c * (8.9 rem 1.0);
+        others => d ** 2;
+    endcase;
+end;
 ```
 
 the following output was produced:
@@ -52,36 +39,20 @@ the following output was produced:
 
 ### Test case 2
 
-For the next test case, I was to test all of the productions for errors. I made errors on every grammar production, but due to the premature state of our compiler, not every error was caught. I used the following code:
+For the next test case, I tested boolean literals, the not operator and the if expression. I used the following code:
 
 ```md
-- Testing all grammars
-// Other comment
+-- Tests boolean literal evaluation, not operator, if expression.
 
-function main param1: integer param2: real returns boolean;
-    var1: integer is 100
-    var2: real is 12.;
-    var_3: boolean is tue;
-
-    begin
-        if (param1 > var1 or not )
-            then
-                reduce 
-                   10 *  + 2;
-                   100 rem;
-                   10 * 10 ** 2
-                   - 2;
-                   10 / 5;
-                end reduce;
-            else:
-                case param1 is
-                    when 0 = > 1 = 2;
-                    when 1 => 3 /= 4;
-                    when 2 => 5 >= 6;
-                    others => 7 <= 8;
-                endcase
-        
-    end;
+function test2 a: real returns boolean;
+    b: boolean is true;
+begin
+    if a > 0 then
+        b;
+    else
+        not b;
+    endif;
+end;
 ```
 
 The following output was produced:
@@ -90,43 +61,30 @@ The following output was produced:
 
 ### Test case 3
 
-For the last test case, I was to test a program with multiple errors. For this test case, I borrowed the test case from Project 2 skeleton test data folder:
+For the last test case, I tested relation operators, the logical operators and finally multiple parameters. I used the following code:
 
 ```md
--- Multiple errors
+-- This tests relation operators, logical operators, and multiple parameters
 
-function main a integer returns real;
+function test3 a: integer, b: integer returns boolean;
 
-    b: integer is * 2;
-    c: real is 6.0;
-    
 begin
-    if a > c then
-        b  3.0; 
-    else
-        b = 4.; 
-    endif;
-;
+    case a is
+        when 1 => (a < b);
+        when 2 => (a > b);
+        when 3 => (a >= b);
+        when 4 => (a <= b);
+        when 5 => (a /= b) and (a = b);
+        others => (a /= b) or (a = b);
+    endcase;
+end;
 ```
 
 the following output was produced:
 ![ss3](img/ss3.png)
+![ss4](img/ss4.png)
+![ss5](img/ss5.png)
 
 ## Lessons Learned
 
-For this project, I learned a lot about context free grammars. I learned how using recursion within a production could produce a list of items. Another thing I learned using left vs right recursion produced left and right associativity. Lastly, I learned that by breaking productions into more specific productions, I could introduce precedence. For instance, making a term production to add operations and factor production to multiply. like:
-
-``` md
-term:
- term ADDOP factor 
- | factor 
- ;
-      
-factor:
- factor MULOP exponent 
- | factor REMOP exponent
- | exponent
- ;
-```
-
-and in this way, the lower the rule, the higher the precedence.
+For this project, I learned a lot about syntax directed translation. I gained valuable information on bison and flex files and took this opportunity to brush up on my C++ skills. The videos for the week allowed me to get a good understanding on how these different types of files worked together. The real challenge was understanding how and when to interpret values for different statements. I ran into major hiccups trying to figure out how to use actions within the bison code. Overall, it was a huge learning experience.

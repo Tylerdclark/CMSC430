@@ -1,6 +1,13 @@
--- Function with arithmetic expression
+-- Tests real evaluation, arithmetic operators, case expression evaluation, multiple variables.
 
-function test1 returns integer;
+function test1 a: integer returns real;
+	b: real is 12.3 + 4.5;
+	c: real is 6.78 - 9.10;
+	d: real is 12.3 / 4.5;
 begin
-    7 + 2 * (2 + 4);
+	case a is
+		when 1 => b * 6.7;
+		when 2 => c * (8.9 rem 1.0);
+		others => d ** 2;
+	endcase;
 end;
