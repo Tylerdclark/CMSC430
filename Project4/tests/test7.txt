@@ -1,0 +1,7 @@
+-- Generates semantic error for duplicate variables
+
+function test7 a: integer returns integer;
+    a: integer is 1;
+begin
+    a;
+end;

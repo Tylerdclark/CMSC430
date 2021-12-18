@@ -1,0 +1,7 @@
+-- Generates semantic error on narrowing initialization
+
+function test6 a: real returns integer;
+    b: integer is a;
+begin
+    b;
+end;

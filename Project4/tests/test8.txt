@@ -1,0 +1,7 @@
+-- Tests for undeclared identifiers
+
+function test8 a: integer returns integer;
+b: integer is a + c;
+begin
+    b;
+end;

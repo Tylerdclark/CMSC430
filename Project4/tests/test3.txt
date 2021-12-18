@@ -1,0 +1,11 @@
+-- Generates semantic error when case types don't match
+-- Case Expression Not Integer
+
+function test3 a: real returns boolean;
+begin
+  case a is
+    when 1 => true;
+    when 2 => 1;
+    others => 1.2;
+  endcase;
+end;

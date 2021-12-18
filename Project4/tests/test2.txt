@@ -1,0 +1,14 @@
+-- Generates semantic error when if and then types don't match
+-- Generates semantic error for return type mismatch
+
+function test2 a: boolean returns boolean;
+    b: integer is 1;
+    c: real is 1.0;
+
+begin
+    if a then
+        b;
+    else
+        c;
+    endif;
+end;

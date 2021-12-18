@@ -1,0 +1,6 @@
+-- Tests for remainder with non-integer operands. 
+
+function test1 a: integer returns integer;
+begin
+	a rem 2.0;
+end;

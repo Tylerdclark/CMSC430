@@ -1,0 +1,9 @@
+-- Generates semantic error when case expression is not integer
+
+function test5 a: boolean returns integer;
+begin
+    case a is
+        when 1 => 1;
+        others => 2;
+    endcase;
+end;

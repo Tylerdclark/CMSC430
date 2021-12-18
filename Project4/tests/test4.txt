@@ -1,0 +1,11 @@
+-- Generates semantic error when if condition is not Boolean
+
+function test4 a: integer returns boolean;
+
+begin
+    if a then
+        true;
+    else
+        false;
+    endif;
+end;
